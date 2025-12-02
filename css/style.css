@@ -1,0 +1,71 @@
+/* Reset básico para tirar margens padrão */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex; /* Centraliza tudo na tela */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura total da tela */
+    color: #333;
+    transition: background 0.5s ease; /* Suaviza a troca de imagem de fundo */
+}
+
+/* 1. O container principal do Quiz */
+#quiz-container {
+    background-color: rgba(255, 255, 255, 0.95); /* Branco com leve transparência */
+    padding: 30px;
+    border-radius: 15px; /* Bordas arredondadas */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* Sombra para dar destaque */
+    width: 90%;
+    max-width: 500px; /* Largura máxima */
+    text-align: center;
+}
+
+/* 2. O Timer */
+#timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d9534f; /* Vermelho para dar urgência */
+    margin-bottom: 20px;
+}
+
+/* 3. O Texto da Pergunta */
+#question-text {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    min-height: 60px; /* Evita que a caixa pule se a pergunta for curta */
+}
+
+/* 4. A área das opções */
+#options {
+    display: flex;
+    flex-direction: column; /* Botões um embaixo do outro */
+    gap: 10px; /* Espaço entre os botões */
+}
+
+/* 5. Os Botões (Esses são criados pelo JS, então estilizamos a tag button dentro de #options) */
+#options button {
+    padding: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff; /* Azul */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+/* Efeito ao passar o mouse no botão */
+#options button:hover {
+    background-color: #0056b3; /* Azul mais escuro */
+    transform: scale(1.02); /* Cresce levemente */
+}
+
+/* 6. A área de resultado (aparece só no final) */
+#result {
+    margin-top: 20px;
+}
+
+#result h2 {
+    color: #28a745; /* Verde */
+}
