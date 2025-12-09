@@ -1,90 +1,93 @@
 <!DOCTYPE html> 
-<html lang="pt-BR">
-
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="stylesheet" href="./css/style.css"/>
-<title>Quiz do time 10!</title>
-</head>
+<html lang="pt-BR"> <head>
+    <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <link rel="stylesheet" href="./css/style.css"/> <title>Quiz do time 10!</title> </head>
 
 <body>
 
     <div id="quiz-container">
-    <div id="timer">Tempo: <span id="time-left"></span>s</div>
-    <div class="question" id="question-text"></div>
-    <div class="options" id="options"></div>
-    <div id="result"></div>
+        
+        <div id="timer">Tempo: <span id="time-left"></span>s</div>
+        
+        <div class="question" id="question-text"></div>
+        
+        <div class="options" id="options"></div>
+        
+        <div class = "result" id="result"></div>
+        
     </div>
 
 <script>
-// CONFIGURAÇÕES
-let tempoPorPergunta = 10; // segundos
+// --- CONFIGURAÇÕES GERAIS ---
+let tempoPorPergunta = 10; // Define quanto tempo o usuário tem por questão
 
+// --- ARRAY DE DADOS (BANCO DE PERGUNTAS) ---
+// Uma lista (Array) de objetos, onde cada objeto é uma pergunta completa
 const quiz = [
   {
-    pergunta: "Qual é o significado da abreviatura BMW?",
-    alternativas: ["Berliner Motoren Werke", "Bavarian Motor Wagons", "Bayerische Maschinen Werke", "Best Motor Wagons", "Bayerische Motoren Werke"],
-    correta: 4,
-    pontos: 10
+    pergunta: "Qual é o significado da abreviatura BMW?", // O texto da pergunta
+    alternativas: ["Berliner Motoren Werke", "Bavarian Motor Wagons", "Bayerische Maschinen Werke", "Best Motor Wagons", "Bayerische Motoren Werke"], // Lista de opções
+    correta: 4, // O índice da resposta certa (começa do 0. Então 4 é a quinta opção)
+    pontos: 1   // Quanto vale essa questão
   },
+  // ... (outras perguntas seguem o mesmo padrão acima) ...
   {
     pergunta: "Onde se localiza a sede mundial da BMW (Vierzylinder)?",
     alternativas: ["Munique", "Berlim", "Hamburgo", "Frankfurt", "Estugarda"],
     correta: 0,
-    pontos: 5
+    pontos: 1
   },
   {
     pergunta: "Em que ano a BMW foi oficialmente fundada como Bayerische Motoren Werke?",
     alternativas: ["1916", "1920", "1913", "1925", "1908"],
     correta: 0,
-    pontos: 10
+    pontos: 1
   },
   {
     pergunta: "Qual das seguintes marcas de automóveis de luxo pertence ao BMW Group?",
     alternativas: ["Lexus", "Audi", "Mercedes-Benz", "Rolls-Royce", "Tesla"],
     correta: 3,
-    pontos: 10
+    pontos: 1
   },
   {
     pergunta: "Qual sistema de interface de condutor e veículo, que controla infoentretenimento e navegação?",
     alternativas: ["SYNC", "MMI", "iDrive", "COMAND", "Connect"],
     correta: 2,
-    pontos: 10
+    pontos: 1
   },
   {
     pergunta: "Qual foi o primeiro carro produzido pela BMW?",
     alternativas: ["BMW 328", "BMW 1500", "Dixi 3/15 PS", "BMW Isetta", "BMW 501"],
     correta: 2,
-    pontos: 10
+    pontos: 1
   },
   {
     pergunta: "Qual é a inspiração oficial por trás do design azul e branco do logótipo circular da BMW?",
     alternativas: ["Um volante visto de frente com os raios", "As cores da bandeira nacional da Alemanha", "Uma hélice de avião a girar sobre um céu azul", "As cores azul e branca da bandeira da Baviera", "O primeiro motor de combustão da empresa"],
     correta: 3,
-    pontos: 10
+    pontos: 1
   },
   {
     pergunta: "Qual é a famosa divisão de desempenho da BMW, responsável por modelos de alta performance?",
     alternativas: ["AMG", "Quattro GmbH", "BMW Motorsport", "SVR", "AC Schnitzer"],
     correta: 2,
-    pontos: 10
+    pontos: 1
   },
   {
     pergunta: "Qual é o slogan globalmente mais conhecido e duradouro da marca BMW?",
     alternativas: ["Das Auto", "The Best or Nothing", "Vantagem através da Tecnologia", "Puro Prazer de Conduzir", "O Prazer de Dirigir"],
     correta: 3,
-    pontos: 10
+    pontos: 1
   },
   {
     pergunta: " Qual foi o primeiro carro puramente elétrico lançado sob a submarca BMW?",
     alternativas: ["BMW i3", "BMW i8", "BMW iX", "BMW i4", "BMW i7"],
     correta: 0,
-    pontos: 10
+    pontos: 1
   },
 ];
 
-// IMAGENS DE FUNDO POR PERGUNTA
+// --- ARRAY DE IMAGENS ---
+// Lista com os caminhos das imagens para mudar o fundo a cada pergunta
 const fundos = [
   'url(./img/img0.png)',
   'url(./img/img1.png)',
@@ -98,78 +101,111 @@ const fundos = [
   'url(./img/img9.jpg)',
 ];
 
-let indice = 0;
-let pontuacao = 0;
-let tempo;
-let contador;
+// --- VARIÁVEIS DE ESTADO (CONTROLE DO JOGO) ---
+let indice = 0;       // Controla em qual pergunta estamos (0 é a primeira)
+let pontuacao = 0;    // Guarda a soma dos pontos do usuário
+let tempo;            // Variável para armazenar o valor numérico do tempo restante
+let contador;         // Variável que guardará o setInterval (o relógio rodando)
 
+// --- FUNÇÃO PRINCIPAL: CARREGA A PERGUNTA NA TELA ---
 function iniciarPergunta() {
-  // Ajusta o fundo
+  
+  // 1. Muda o fundo da tela
+  // Pega a imagem correspondente ao índice atual. Se não tiver imagem, usa 'none'.
   document.body.style.backgroundImage = fundos[indice] || 'none';
-  document.body.style.backgroundSize = 'cover';
-  document.body.style.backgroundPosition = 'center';
+  document.body.style.backgroundSize = 'cover';      // Faz a imagem cobrir toda a tela
+  document.body.style.backgroundPosition = 'center'; // Centraliza a imagem
 
-  // Verifica se acabou
+  // 2. Verifica se o jogo acabou
+  // Se o índice atual for igual ou maior que o total de perguntas...
   if (indice >= quiz.length) {
-    mostrarResultado();
-    return;
+    mostrarResultado(); // ...chama a tela final...
+    return;             // ...e PARA a execução dessa função aqui (return).
   }
 
-  const q = quiz[indice];
-  
-  // --- CORREÇÃO FEITA AQUI ---
+  // 3. Prepara os dados da pergunta atual
+  const q = quiz[indice]; // Pega o objeto da pergunta atual dentro do array
+
+  // Insere o texto da pergunta no HTML. 
+  // Usa `(indice+1)` porque para o usuário a contagem começa em 1, não em 0.
   document.getElementById("question-text").textContent = `(${indice+1}) ${q.pergunta}`;
-  // ---------------------------
 
-  const opcoesDiv = document.getElementById("options");
-  opcoesDiv.innerHTML = "";
+  // 4. Limpa as opções anteriores
+  const opcoesDiv = document.getElementById("options"); // Seleciona a div das opções
+  opcoesDiv.innerHTML = ""; // Apaga os botões da pergunta anterior
 
+  // 5. Cria os botões das respostas dinamicamente
+  // Para cada alternativa (alt) e seu índice (i)...
   q.alternativas.forEach((alt, i) => {
-    const btn = document.createElement("button");
-    btn.textContent = alt;
-    btn.onclick = () => responder(i);
-    opcoesDiv.appendChild(btn);
+    const btn = document.createElement("button"); // Cria um elemento <button> novo na memória
+    btn.textContent = alt;                        // Coloca o texto da alternativa dentro do botão
+    
+    // Define o que acontece ao clicar: chama a função responder passando o índice deste botão
+    btn.onclick = () => responder(i); 
+    
+    opcoesDiv.appendChild(btn); // Adiciona o botão criado dentro da div #options na tela
   });
 
-  tempo = tempoPorPergunta;
-  document.getElementById("time-left").textContent = tempo;
-  iniciarTimer();
+  // 6. Reseta o relógio
+  tempo = tempoPorPergunta; // Restaura o tempo (ex: volta para 10s)
+  document.getElementById("time-left").textContent = tempo; // Atualiza o número na tela
+  iniciarTimer(); // Começa a contagem regressiva
 }
 
+// --- FUNÇÃO DO TIMER (CONTAGEM REGRESSIVA) ---
 function iniciarTimer() {
-  clearInterval(contador);
+  clearInterval(contador); // Garante que não existam dois relógios rodando ao mesmo tempo (limpa o anterior)
+  
+  // Cria um loop que roda a cada 1000 milissegundos (1 segundo)
   contador = setInterval(() => {
-    tempo--;
-    document.getElementById("time-left").textContent = tempo;
+    tempo--; // Diminui 1 segundo da variável tempo
+    document.getElementById("time-left").textContent = tempo; // Atualiza o texto na tela
 
+    // Se o tempo acabar...
     if (tempo <= 0) {
-      clearInterval(contador);
-      indice++;
-      iniciarPergunta();
+      clearInterval(contador); // Para o relógio
+      indice++;                // Pula para a próxima pergunta (mesmo sem responder)
+      iniciarPergunta();       // Carrega a nova tela
     }
   }, 1000);
 }
 
+// --- FUNÇÃO QUE PROCESSA A RESPOSTA DO USUÁRIO ---
+// Recebe 'i', que é o índice do botão que o usuário clicou
 function responder(i) {
-  clearInterval(contador);
-  const q = quiz[indice];
+  clearInterval(contador); // Para o tempo imediatamente, pois o usuário já respondeu
+
+  const q = quiz[indice];  // Pega os dados da pergunta atual para conferir o gabarito
+  
+  // Se o índice clicado (i) for igual ao índice correto (q.correta)...
   if (i === q.correta) {
-    pontuacao += q.pontos;
+    pontuacao += q.pontos; // ...adiciona pontos ao placar.
   }
-  indice++;
-  iniciarPergunta();
+  
+  indice++; // Aumenta o índice para ir para a próxima pergunta
+  iniciarPergunta(); // Chama a função que desenha a nova tela
 }
 
+// --- FUNÇÃO QUE EXIBE O FINAL DO JOGO ---
 function mostrarResultado() {
-  document.getElementById("quiz-container").innerHTML = `
+  // Esconde os elementos do jogo para limpar a tela
+  document.getElementById("timer").style.display = "none";
+  document.getElementById("question-text").style.display = "none";
+  document.getElementById("options").style.display = "none";
+
+  // Insere o HTML de resultado dentro da div #result
+  // Usa Template String (crases ``) para misturar HTML com variáveis JS (${pontuacao})
+  document.getElementById("result").innerHTML = `
     <h2>Resultado Final</h2>
     <p>Pontuação total: <strong>${pontuacao}</strong></p>
     <p>Você respondeu ${quiz.length} perguntas.</p>
+    
     <button class ="restart-button" onclick="location.reload()">Reiniciar</button>
   `;
 }
 
-iniciarPergunta();
+// --- PONTO DE PARTIDA ---
+iniciarPergunta(); // Chama a função pela primeira vez para começar o jogo assim que a página carrega
 </script>
 </body>
 </html>
