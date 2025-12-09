@@ -23,30 +23,79 @@ let tempoPorPergunta = 10; // segundos
 
 const quiz = [
   {
-    pergunta: "Qual a capital da França?",
-    alternativas: ["Londres", "Paris", "Roma", "Berlim"],
-    correta: 1,
+    pergunta: "Qual é o significado da abreviatura BMW?",
+    alternativas: ["Berliner Motoren Werke", "Bavarian Motor Wagons", "Bayerische Maschinen Werke", "Best Motor Wagons", "Bayerische Motoren Werke"],
+    correta: 4,
     pontos: 10
   },
   {
-    pergunta: "Quanto é 5 + 7?",
-    alternativas: ["10", "11", "12", "13"],
-    correta: 2,
+    pergunta: "Onde se localiza a sede mundial da BMW (Vierzylinder)?",
+    alternativas: ["Munique", "Berlim", "Hamburgo", "Frankfurt", "Estugarda"],
+    correta: 0,
     pontos: 5
   },
   {
-    pergunta: "Qual linguagem roda no navegador?",
-    alternativas: ["Python", "C++", "JavaScript", "Java"],
+    pergunta: "Em que ano a BMW foi oficialmente fundada como Bayerische Motoren Werke?",
+    alternativas: ["1916", "1920", "1913", "1925", "1908"],
+    correta: 0,
+    pontos: 10
+  },
+  {
+    pergunta: "Qual das seguintes marcas de automóveis de luxo pertence ao BMW Group?",
+    alternativas: ["Lexus", "Audi", "Mercedes-Benz", "Rolls-Royce", "Tesla"],
+    correta: 3,
+    pontos: 10
+  },
+  {
+    pergunta: "Qual sistema de interface de condutor e veículo, que controla infoentretenimento e navegação?",
+    alternativas: ["SYNC", "MMI", "iDrive", "COMAND", "Connect"],
     correta: 2,
     pontos: 10
-  }
+  },
+  {
+    pergunta: "Qual foi o primeiro carro produzido pela BMW?",
+    alternativas: ["BMW 328", "BMW 1500", "Dixi 3/15 PS", "BMW Isetta", "BMW 501"],
+    correta: 2,
+    pontos: 10
+  },
+  {
+    pergunta: "Qual é a inspiração oficial por trás do design azul e branco do logótipo circular da BMW?",
+    alternativas: ["Um volante visto de frente com os raios", "As cores da bandeira nacional da Alemanha", "Uma hélice de avião a girar sobre um céu azul", "As cores azul e branca da bandeira da Baviera", "O primeiro motor de combustão da empresa"],
+    correta: 3,
+    pontos: 10
+  },
+  {
+    pergunta: "Qual é a famosa divisão de desempenho da BMW, responsável por modelos de alta performance?",
+    alternativas: ["AMG", "Quattro GmbH", "BMW Motorsport", "SVR", "AC Schnitzer"],
+    correta: 2,
+    pontos: 10
+  },
+  {
+    pergunta: "Qual é o slogan globalmente mais conhecido e duradouro da marca BMW?",
+    alternativas: ["Das Auto", "The Best or Nothing", "Vantagem através da Tecnologia", "Puro Prazer de Conduzir", "O Prazer de Dirigir"],
+    correta: 3,
+    pontos: 10
+  },
+  {
+    pergunta: " Qual foi o primeiro carro puramente elétrico lançado sob a submarca BMW?",
+    alternativas: ["BMW i3", "BMW i8", "BMW iX", "BMW i4", "BMW i7"],
+    correta: 0,
+    pontos: 10
+  },
 ];
 
 // IMAGENS DE FUNDO POR PERGUNTA
 const fundos = [
-  "url('https://picsum.photos/800/600?random=1')",
-  "url('https://picsum.photos/800/600?random=2')",
-  "url('https://picsum.photos/800/600?random=3')"
+  'url(./img/img0.png)',
+  'url(./img/img1.png)',
+  'url(./img/img2.png)',
+  'url(./img/img3.png)',
+  'url(./img/img4.png)',
+  'url(./img/img5.jpg)',
+  'url(./img/img6.jpg)',
+  'url(./img/img7.jpg)',
+  'url(./img/img8.jpg)',
+  'url(./img/img9.jpg)',
 ];
 
 let indice = 0;
@@ -116,7 +165,7 @@ function mostrarResultado() {
     <h2>Resultado Final</h2>
     <p>Pontuação total: <strong>${pontuacao}</strong></p>
     <p>Você respondeu ${quiz.length} perguntas.</p>
-    <button onclick="location.reload()">Reiniciar</button>
+    <button class ="restart-button" onclick="location.reload()">Reiniciar</button>
   `;
 }
 

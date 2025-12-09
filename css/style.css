@@ -1,23 +1,27 @@
 /* Reset básico para tirar margens padrão */
 body {
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(2px); /* Efeito de desfoque no fundo */
     margin: 0;
     font-family: 'Arial', sans-serif;
     display: flex; /* Centraliza tudo na tela */
     justify-content: center;
     align-items: center;
     height: 100vh; /* Altura total da tela */
-    color: #333;
+    color: #e2e2e2;
     transition: background 0.5s ease; /* Suaviza a troca de imagem de fundo */
 }
 
 /* 1. O container principal do Quiz */
 #quiz-container {
-    background-color: rgba(255, 255, 255, 0.95); /* Branco com leve transparência */
+    border: 1px solid #2e2e2e; /* Borda azul */
+    background-color: rgba(20, 20, 20, 0.95); /* Branco com leve transparência */
     padding: 30px;
     border-radius: 15px; /* Bordas arredondadas */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* Sombra para dar destaque */
+    box-shadow: 0px 0px 50px rgba(0,0,0,0.5); /* Sombra para dar destaque */
     width: 90%;
-    max-width: 500px; /* Largura máxima */
+    max-width: 600px; /* Largura máxima */
     text-align: center;
 }
 
@@ -25,7 +29,7 @@ body {
 #timer {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #d9534f; /* Vermelho para dar urgência */
+    color: #ffffff; /* Vermelho para dar urgência */
     margin-bottom: 20px;
 }
 
@@ -39,8 +43,8 @@ body {
 /* 4. A área das opções */
 #options {
     display: flex;
-    flex-direction: column; /* Botões um embaixo do outro */
-    gap: 10px; /* Espaço entre os botões */
+    flex-direction: column; /* Botões um em cima do outro */
+    gap: 15px; /* Espaço entre os botões */
 }
 
 /* 5. Os Botões (Esses são criados pelo JS, então estilizamos a tag button dentro de #options) */
@@ -48,8 +52,8 @@ body {
     padding: 15px;
     font-size: 1rem;
     cursor: pointer;
-    background-color: #007bff; /* Azul */
-    color: white;
+    background-color: #00c3ff; /* Azul */
+    color: rgb(44, 44, 44);
     border: none;
     border-radius: 8px;
     transition: transform 0.2s, background-color 0.2s;
@@ -57,15 +61,31 @@ body {
 
 /* Efeito ao passar o mouse no botão */
 #options button:hover {
-    background-color: #0056b3; /* Azul mais escuro */
-    transform: scale(1.02); /* Cresce levemente */
+    background-color: #ffffff; /* Azul mais escuro */
+    transform: scale(1.08); /* Cresce levemente */
 }
 
 /* 6. A área de resultado (aparece só no final) */
 #result {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 #result h2 {
-    color: #28a745; /* Verde */
+    color: #22b845; /* Verde */
+}
+
+.restart-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #00c3ff; /* Azul */
+    color: rgb(44, 44, 44);
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s, background-color 0.2s;
+    margin-top: 15px;
+}
+.restart-button:hover {
+    background-color: #ffffff; /* Azul mais escuro */
+    transform: scale(1.08); /* Cresce levemente */
 }
