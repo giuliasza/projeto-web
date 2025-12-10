@@ -1,54 +1,103 @@
-/* Reset básico para tirar margens padrão */
-body {
-    background-size: cover;
-    background-color: #2e2e2e;
-    background-position: center;
-    backdrop-filter: blur(2px); /* Efeito de desfoque no fundo */
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    display: flex; /* Centraliza tudo na tela */
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Altura total da tela */
-    color: #dadada;
-    transition: background 0.5s ease; /* Suaviza a troca de imagem de fundo */
+@font-face {
+    font-family: 'FonteQuiz'; /* define o nome da fonte */
+    src: url('../font/GROBOLD.ttf'); /* o caminho da fonte */
+}
+@font-face {
+    font-family: 'FontePrincipal'; /* define o nome da fonte */
+    src: url('../font/OpenSans.ttf'); /* o caminho da fonte */
 }
 
-/* 1. O container principal do Quiz */
+/* configurações básicas do body */
+body {
+    background-size: cover;/* Ajusta o tamanho da imagem de fundo */
+    background-repeat: repeat;/* Repete a imagem de fundo */
+    background-image: url('../imagens/fundoBaseQuiz.png'); /* Imagem de fundo inicial */
+    margin: 0; /* Remove margens padrão */
+    padding: 0; /* Remove padding padrão */
+    display: flex; /* flexbox para centralizar o conteúdo */
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: center; /* centraliza verticalmente */
+    font-family: 'FontePrincipal', sans-serif; /* fonte padrão */
+    height: 100vh; /* altura total da tela */
+    color: #dadada; /* cor padrão do texto */
+    transition: background 0.5s ease; /* suaviza a troca de imagem de fundo */
+}
+
+
+
+/*conteiner principal do quiz (onde vai tudo dentro)*/
 #quiz-container {
-    border: 2px solid #3b3b3b; /* Borda azul */
-    background-color: rgba(20, 20, 20, 0.95); /* Branco com leve transparência */
-    padding: 30px;
-    border-radius: 15px; /* Bordas arredondadas */
-    box-shadow: 0px 0px 50px rgba(0,0,0,0.5); /* Sombra para dar destaque */
-    width: 90%;
-    max-width: 600px; /* Largura máxima */
+    border: 2px solid #3b3b3b; /* adiciona uma borda escura */
+    background-color: rgba(20, 20, 20, 0.95); /*adciona um fundo ao conteiner*/
+    padding: 30px; /* cria um espaçamento interno */
+    border-radius: 15px; /*arredondada as bordas */
+    box-shadow: 0px 0px 50px rgba(0,0,0,0.5); /* sombra para dar destaque ao container */
+    width: 90%; /* largura responsiva */
+    max-width: 600px; /* largura máxima */
     text-align: center;
 }
 
-/* 2. O Timer */
+/* Tela inicial do quiz */
+.start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+/* Títulos da tela inicial */
+.start-screen h1 {
+    font-size: 2rem;
+}
+.start-screen h2 {
+    font-family: 'FonteQuiz', sans-serif;
+    font-size: 5rem;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.start-screen h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+/* botão de iniciar o quiz */
+.start-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: #00c3ff; /* Azul */
+    color: rgb(44, 44, 44);
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+.start-button:hover {
+    background-color: #ffffff; /* Azul mais escuro */
+    transform: scale(1.08); /* Cresce levemente */
+}
+
+
+/*estiliza o timer do quiz*/
 #timer {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #ffffff; /* Vermelho para dar urgência */
+    color: #ffffff;
     margin-bottom: 20px;
 }
 
-/* 3. O Texto da Pergunta */
+/*estiliza o texto da pergunta*/
 #question-text {
     font-size: 1.5rem;
     margin-bottom: 25px;
-    min-height: 60px; /* Evita que a caixa pule se a pergunta for curta */
+    min-height: 60px; /* evita que a caixa pule se a pergunta for curta */
 }
 
-/* 4. A área das opções */
+/* estiliza a área dos botões de resposta */
 #options {
     display: flex;
-    flex-direction: column; /* Botões um em cima do outro */
-    gap: 15px; /* Espaço entre os botões */
+    flex-direction: column; /* coloca os botões um em cima do outro */
+    gap: 15px; /* espaço entre os botões */
 }
 
-/* 5. Os Botões (Esses são criados pelo JS, então estilizamos a tag button dentro de #options) */
+/*estiliza os botões em si de resposta */
 #options button {
     padding: 15px;
     font-size: 1rem;
@@ -62,31 +111,124 @@ body {
 
 /* Efeito ao passar o mouse no botão */
 #options button:hover {
-    background-color: #ffffff; /* Azul mais escuro */
+    background-color: #ffffff; /*deixa o fundo branco */
     transform: scale(1.08); /* Cresce levemente */
+    box-shadow: #00c3ff 0px 0px 30px; /* sombra azul que destaca mais a escolha */
 }
 
-/* 6. A área de resultado (aparece só no final) */
+/* esilização da area de resultado */
 #result {
-    margin-top: 15px;
+    margin-top: 15px;/* espaço acima da área de resultado para nao ficar colado demais na borda*/
 }
-
 #result h2 {
-    color: #22b845; /* Verde */
+    color: #22b845; /* da um destaque verde */
+}
+/* estiliza a lista de resultados */
+#result ul {
+    display: flex;
+    flex-direction: column; /* coloca os itens um em cima do outro */
+    flex-wrap: wrap; /* caso seja necessario ele ira quebrar a linha da lista */
+    max-height: 400px; /* altura maxima da lista(vai previnir de fica tocando nas bordas da janela) */
+    overflow-y: auto; /* caso a lista se quebre com o wrap adiciona uma rolagem na vertical */
+    gap: 10px; /* cria um espaço entre os itens */
+    list-style-type: none; /* tira as bolinhas que vem como padrao da lista */
+    padding: 10px; /* adiciona um padding interno para o texto nao ficar colado nas bordas */
+    text-align: left; /* alinha o texto na esquerda */
+    margin-top: 10px; /*cria um espaçamento no topp da lista */
+}
+/*caso a respota for correta pinta de verde*/
+#result div.divCorreta {
+    background-color: rgb(72, 255, 99);
+    border-radius: 10px;
+    padding: 10px;
+    color: #000000;
+}
+/*caso a resposta for incorreta pinta de vermelho*/
+#result div.divIncorreta {
+    background-color: rgb(255, 72, 72);
+    border-radius: 10px;
+    padding: 10px;
+    color: #000;
 }
 
+/* estiliza o botão de reiniciar o quiz */
 .restart-button {
     padding: 10px 20px;
     font-size: 1rem;
-    cursor: pointer;
-    background-color: #00c3ff; /* Azul */
+    cursor: pointer; /*muda o estilo do cursor para indicar que é clicável */
+    background-color: #00c3ff;
     color: rgb(44, 44, 44);
-    border: none;
+    border: none; /*remove a borda padrão do botão */
     border-radius: 8px;
-    transition: transform 0.2s, background-color 0.2s;
+    transition: transform 0.2s, background-color 0.2s;/*suaviza a transição das propriedades */
     margin-top: 15px;
 }
+/* efeito ao passar o mouse no botão */
 .restart-button:hover {
-    background-color: #ffffff; /* Azul mais escuro */
+    background-color: #ffffff; /* deixa o fundo branco pra facilitar a visualização */
     transform: scale(1.08); /* Cresce levemente */
+}
+
+/* adidiona medeia querrys para resposividade em celulares */
+
+/* para telas menotres que 768 pixels de largura*/
+@media (max-width: 768px) {
+    #quiz-container {
+        padding: 20px; /*adiciona um padding menor para nao bater nas bordas*/
+        width: 80%; /* ajusta pra nao ficar tao largo */
+    }
+
+    .start-screen h1 {
+        font-size: 1.5rem; /* diminui o subtítulo para nao ficar desproporcional */
+    }
+
+    .start-screen h2 {
+        font-size: 3.5rem; /* diminui o título principal para nao ficar desproporcional */
+    }
+}
+
+/* para telas menores que 480 pixels de largura */
+@media (max-width: 480px) {
+    /* ajusta o padding do conteiner principal */
+    .start-screen h2 {
+        font-size: 2.5rem; /* diminui ainda mais o título principal */
+    }
+
+    #question-text {
+        font-size: 1.2rem; /* Texto da pergunta levemente menor */
+    }
+
+    #options button, .start-button {
+        padding: 12px; /* Botões mais compactos */
+        font-size: 0.9rem; /* fonte levemente menor nos botões */
+    }
+
+    #result ul {
+        max-height: 300px; /* reduz a altura da lista de resultados */
+    }
+}
+
+/* para celulares deitados */
+@media (max-height: 500px) {
+
+    /* ajusta a altura do body para evitar cortes */
+    body {
+        height: auto; /* ajusta a altura automaticamente */
+        min-height: 100vh; /* garante que a altura mínima seja a altura da tela */
+        padding: 20px 0; /* adiciona um padding vertical para evitar cortes */
+    }
+
+    /* ajusta o tamanho dos títulos na tela inicial */
+    .start-screen h2 {
+        margin-bottom: 5px;
+        margin-top: 5px;
+        font-size: 2rem;
+    }
+
+
+    /* ajusta o espaçamento do conteiner do quiz */
+    #quiz-container {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
 }
